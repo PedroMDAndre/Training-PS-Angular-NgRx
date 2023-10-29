@@ -1,4 +1,4 @@
-import { UserState } from '../user/store/user.reducer';
+import { UserState } from '../user/state/user.reducer';
 
 export interface State {
   users: UserState;

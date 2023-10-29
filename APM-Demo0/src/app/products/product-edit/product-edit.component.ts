@@ -5,8 +5,8 @@ import { Product } from '../product';
 import { GenericValidator } from '../../shared/generic-validator';
 import { NumberValidators } from '../../shared/number.validator';
 import { Store } from '@ngrx/store';
-import { State, getCurrentProduct } from '../state/product.reducer';
-import { ProductAction } from '../state/product.action';
+import { State, getCurrentProduct } from '../state/';
+import { ProductPageActions } from '../state/actions/';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -118,12 +118,12 @@ export class ProductEditComponent implements OnInit {
     if (product && product.id) {
       if (confirm(`Really delete the product: ${product.productName}?`)) {
         this.store.dispatch(
-          ProductAction.deleteProduct({ productId: product.id })
+          ProductPageActions.deleteProduct({ productId: product.id })
         );
       }
     } else {
       // No need to delete, it was never saved
-      this.store.dispatch(ProductAction.clearCurrentProduct());
+      this.store.dispatch(ProductPageActions.clearCurrentProduct());
     }
   }
 
@@ -136,9 +136,9 @@ export class ProductEditComponent implements OnInit {
         const product = { ...originalProduct, ...this.productForm.value };
 
         if (product.id === 0) {
-          this.store.dispatch(ProductAction.createProduct({ product }));
+          this.store.dispatch(ProductPageActions.createProduct({ product }));
         } else {
-          this.store.dispatch(ProductAction.updateProduct({ product }));
+          this.store.dispatch(ProductPageActions.updateProduct({ product }));
         }
       }
     }

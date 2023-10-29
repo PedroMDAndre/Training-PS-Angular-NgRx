@@ -5,8 +5,8 @@ import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { Store } from '@ngrx/store';
 import { State } from '../state/app.state';
-import { getMaskUserName } from './store/user.reducer';
-import { UserAction } from './store/user.action';
+import { getMaskUserName } from './state/user.reducer';
+import { UserAction } from './state/user.action';
 import { Observable } from 'rxjs';
 
 @Component({
