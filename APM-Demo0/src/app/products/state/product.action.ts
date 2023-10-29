@@ -6,7 +6,7 @@ export class ProductAction {
 
   static setCurrentProduct = createAction(
     '[Product] Set Current Product',
-    props<{ product: Product }>()
+    props<{ currentProductId: number }>()
   );
 
   static clearCurrentProduct = createAction('[Product] Clear Current Product');
@@ -24,6 +24,51 @@ export class ProductAction {
 
   static loadProductsFailure = createAction(
     '[Product] Load Fail',
+    props<{ error: string }>()
+  );
+
+  static updateProduct = createAction(
+    '[Product] Update Product',
+    props<{ product: Product }>()
+  );
+
+  static updateProductSuccess = createAction(
+    '[Product] Update Product Success',
+    props<{ product: Product }>()
+  );
+
+  static updateProductFailure = createAction(
+    '[Product] Update Product Fail',
+    props<{ error: string }>()
+  );
+
+  static deleteProduct = createAction(
+    '[Product] Delete Product',
+    props<{ productId: number }>()
+  );
+
+  static deleteProductSuccess = createAction(
+    '[Product] Delete Product Success',
+    props<{ productId: number }>()
+  );
+
+  static deleteProductFailure = createAction(
+    '[Product] Delete Product Fail',
+    props<{ error: string }>()
+  );
+
+  static createProduct = createAction(
+    '[Product] Create Product',
+    props<{ product: Product }>()
+  );
+
+  static createProductSuccess = createAction(
+    '[Product] Create Product Success',
+    props<{ product: Product }>()
+  );
+
+  static createProductFailure = createAction(
+    '[Product] Create Product Fail',
     props<{ error: string }>()
   );
 }

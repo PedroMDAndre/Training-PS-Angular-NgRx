@@ -122,6 +122,9 @@ export class ProductEditComponent implements OnInit {
   deleteProduct(product: Product): void {
     if (product && product.id) {
       if (confirm(`Really delete the product: ${product.productName}?`)) {
+        this.store.dispatch(
+          ProductAction.deleteProduct({ productId: product.id })
+        );
         this.productService.deleteProduct(product.id).subscribe({
           next: () => this.store.dispatch(ProductAction.clearCurrentProduct()),
           error: (err) => (this.errorMessage = err),
@@ -142,21 +145,9 @@ export class ProductEditComponent implements OnInit {
         const product = { ...originalProduct, ...this.productForm.value };
 
         if (product.id === 0) {
-          this.productService.createProduct(product).subscribe({
-            next: (p) =>
-              this.store.dispatch(
-                ProductAction.setCurrentProduct({ product: p })
-              ),
-            error: (err) => (this.errorMessage = err),
-          });
+          this.store.dispatch(ProductAction.createProduct({ product }));
         } else {
-          this.productService.updateProduct(product).subscribe({
-            next: (p) =>
-              this.store.dispatch(
-                ProductAction.setCurrentProduct({ product: p })
-              ),
-            error: (err) => (this.errorMessage = err),
-          });
+          this.store.dispatch(ProductAction.updateProduct({ product }));
         }
       }
     }
