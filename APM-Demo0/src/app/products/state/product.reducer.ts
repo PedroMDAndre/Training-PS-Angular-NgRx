@@ -16,12 +16,14 @@ export interface ProductState {
   showProductCode: boolean;
   currentProduct: Product;
   products: Product[];
+  error: string;
 }
 
 const initialState: ProductState = {
   showProductCode: true,
   currentProduct: null,
   products: [],
+  error: '',
 };
 
 const productSelector = createFeatureSelector<ProductState>('products');
@@ -40,6 +42,8 @@ export const getProducts = createSelector(
   productSelector,
   (state) => state.products
 );
+
+export const getError = createSelector(productSelector, (state) => state.error);
 
 export const productReducer = createReducer<ProductState>(
   initialState,
@@ -73,6 +77,20 @@ export const productReducer = createReducer<ProductState>(
     return {
       ...state,
       currentProduct: currentProduct,
+    };
+  }),
+  on(ProductAction.loadProductsSuccess, (state, action): ProductState => {
+    return {
+      ...state,
+      products: action.products,
+      error: '',
+    };
+  }),
+  on(ProductAction.loadProductsFailure, (state, action) => {
+    return {
+      ...state,
+      products: [],
+      error: action.error,
     };
   })
 );
